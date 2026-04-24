@@ -10,6 +10,7 @@ const navItems = [
   "Campaigns",
   "Analytics",
   "Customers",
+  "Pricing Insights",
   "Settings",
 ];
 
@@ -70,6 +71,13 @@ const customers = [
   { name: "Laura M.", value: "VIP", history: "3 prior cases", channel: "SMS", guidance: "Quick substitute + goodwill works well" },
   { name: "Emma L.", value: "Medium", history: "2 refund cases", channel: "Email", guidance: "Keep refund updates frequent" },
   { name: "Kadi T.", value: "High", history: "No refund history", channel: "Email", guidance: "Campaign recovery likely enough" },
+];
+
+const pricingRows = [
+  { brand: "SKIN1004", category: "Skincare", ourPrice: "€19.90", competitor: "€17.90", gap: "-10.1%", action: "Review margin-safe response" },
+  { brand: "Rom&nd", category: "Makeup", ourPrice: "€12.50", competitor: "€12.40", gap: "-0.8%", action: "No action needed" },
+  { brand: "Australian Gold", category: "Body", ourPrice: "€24.00", competitor: "€21.50", gap: "-10.4%", action: "Priority review" },
+  { brand: "Joik", category: "Body", ourPrice: "€15.90", competitor: "€16.40", gap: "+3.1%", action: "Hold price" },
 ];
 
 function Badge({ children, tone = "slate" }) {
@@ -252,6 +260,60 @@ export default function GemerCsHub() {
       <SectionCard title="Support-facing customer context">
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">{customers.map((c) => <div key={c.name} className="rounded-3xl border border-slate-200 p-5"><div className="flex items-center gap-2"><div className="font-semibold">{c.name}</div><Badge tone={c.value === "VIP" ? "violet" : c.value === "High" ? "blue" : "slate"}>{c.value}</Badge></div><div className="mt-3 text-sm text-slate-500">{c.history}</div><div className="mt-2 text-sm text-slate-500">Preferred channel: {c.channel}</div><div className="mt-4 rounded-2xl bg-slate-50 p-3 text-sm text-slate-700">{c.guidance}</div></div>)}</div>
       </SectionCard>
+    ),
+    "Pricing Insights": (
+      <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
+        <SectionCard
+          title="Competitor pricing monitor"
+          right={<div className="text-xs text-slate-500">Category + brand view</div>}
+        >
+          <div className="overflow-x-auto">
+            <table className="min-w-full text-left text-sm">
+              <thead className="text-slate-500">
+                <tr className="border-b border-slate-100">
+                  <th className="pb-3 font-medium">Brand</th>
+                  <th className="pb-3 font-medium">Category</th>
+                  <th className="pb-3 font-medium">Our price</th>
+                  <th className="pb-3 font-medium">Competitor</th>
+                  <th className="pb-3 font-medium">Gap</th>
+                  <th className="pb-3 font-medium">Recommendation</th>
+                </tr>
+              </thead>
+              <tbody>
+                {pricingRows.map((row) => (
+                  <tr key={`${row.brand}-${row.category}`} className="border-b border-slate-100 last:border-0">
+                    <td className="py-4 font-medium">{row.brand}</td>
+                    <td className="py-4">{row.category}</td>
+                    <td className="py-4">{row.ourPrice}</td>
+                    <td className="py-4">{row.competitor}</td>
+                    <td className="py-4">
+                      <span className={`font-medium ${row.gap.startsWith("-") ? "text-red-600" : "text-emerald-600"}`}>
+                        {row.gap}
+                      </span>
+                    </td>
+                    <td className="py-4">{row.action}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </SectionCard>
+
+        <SectionCard title="Pricing actions">
+          <div className="grid gap-3">
+            {[
+              "Flag hero SKUs where competitor price gap is large enough to hurt conversion.",
+              "Protect margin by identifying categories where no action is needed.",
+              "Use category and brand grouping to prioritize reviews in price-sensitive markets.",
+              "Support market-entry decisions with a clearer competitor gap overview.",
+            ].map((text) => (
+              <div key={text} className="rounded-2xl bg-slate-50 p-4 text-sm text-slate-700">
+                {text}
+              </div>
+            ))}
+          </div>
+        </SectionCard>
+      </div>
     ),
     Settings: (
       <SectionCard title="Rules and integrations">
