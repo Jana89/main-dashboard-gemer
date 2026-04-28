@@ -358,7 +358,7 @@ export default function GemerCsHub() {
             <div className="mx-auto flex max-w-[1600px] flex-col gap-4 px-4 py-4 lg:px-8 xl:flex-row xl:items-center xl:justify-between">
               <div>
                 <h1 className="text-2xl font-semibold tracking-tight">{activePage}</h1>
-                <p className="mt-1 text-sm text-slate-500">Styled to match the uploaded Gemer dashboard while keeping the new client-fit support workflows.</p>
+                <p className="mt-1 text-sm text-slate-500">Customer support dashboard for efficient support operations.</p>
               </div>
               <div className="flex flex-wrap items-center gap-3">
                 <input value={search} onChange={(e) => setSearch(e.target.value)} className="w-72 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none placeholder:text-slate-400" placeholder="Search case, customer, order..." />
